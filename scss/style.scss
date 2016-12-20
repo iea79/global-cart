@@ -1,0 +1,272 @@
+/*
+//  ==========================
+//  Evgeniy Ivanov
+//  Email: busforward@gmail.com
+//  Skype: ivanov_ea
+//  ==========================
+ */
+
+// Compass extention 
+@import 'compass/css3';
+@import '_old_style';
+
+// Mixin =======================================================================
+@mixin columns-text($width, $count, $padding, $divider_widh, $divider_line, $divider_color) {
+	@include columns($width $count); // Count and width or columns
+	@include column-gap($padding); // Padding for columns
+	@include column-rule($divider_widh $divider_line $divider_color); // Divider for columns
+}
+
+// Float el clear
+%clear_a {
+	&:after {
+		content: '';
+		display: table;
+		clear: both;
+	}
+}
+
+%clear_b {
+	&:before {
+		content: '';
+		display: table;
+		clear: both;
+	}
+}
+
+%clear_all {
+	@extend %clear_a;
+	@extend %clear_b;
+}
+
+// Transition speed for element
+@mixin trs($trs_speed) {
+	@include transition(all ($trs_speed)s);
+}
+
+// ========================================================================
+// Main styles
+.main-content-midle {
+	box-sizing: border-box;
+	padding-right: 10px;
+	padding-left: 10px;
+}
+.midle-box {
+	position: relative;
+	overflow: hidden;
+	padding-bottom: 45%;
+	margin-bottom: 15px;
+	&-cont {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		display: block;
+	}
+	&-wrapp {
+		display: table;
+		width: 100%;
+		height: 100%;
+	}
+	&-wrapp-tc {
+		display: table-cell;
+		vertical-align: middle;
+		text-align: center;
+		img {
+			max-height: 100%;
+			max-width: 100%;
+		}
+	}
+}
+
+.uk-panel-box-info {
+	background-color: #fff;
+	border: 1px solid #ccc;
+	display: block;
+	padding: 20px 35px;
+	@include border-radius(4px);
+	@extend %clear_a;
+	@media (max-width: 480px) {
+		padding: 10px 20px;
+	}
+	&-text {
+		// overflow: hidden;
+		color: #444;
+		font-family: "Open Sans";
+		font-size: 14px;
+		font-style: italic;
+		// overflow: hidden;
+		overflow: hidden;
+		@media (max-width: 570px) {
+			overflow: initial;
+		}
+	}
+	&-title {
+		font-size: 18px;
+		line-height: 22px;
+		font-weight: 600;
+		margin-bottom: 7px;
+	}
+	&-button {
+		float: right;
+		padding-top: 15px;
+		padding-left: 25px;
+		.uk-button {
+			width: 160px;
+		}
+		@media (max-width:958px) {
+			padding-top: 0;
+		}
+		@media (max-width: 480px) {
+			width: 100%;
+			margin-bottom: 15px;
+			padding-left: 0;
+		}
+	}
+	&-large {
+		&:before {
+			content: image-url('gedit.png');
+			display: block;
+			float: left;
+			margin-right: 3.4%;
+			@media (max-width: 570px) {
+				display: none;
+			}
+		}
+		.uk-panel-box-info-button {
+			padding-top: 5px;
+		}
+	}
+}
+
+@media (max-width: 480px) {
+  .uk-grid-width-small-1-1 > * {
+    width: 100%;
+  }
+}
+
+.list-style-img {
+	list-style: none;
+	padding: 10px 0 5px 65px;
+	img {
+		float: left;
+		margin-left: -65px;
+		display: inline-block;
+	}
+	p {
+		margin-bottom: 0;
+	}
+	li {
+		@extend %clear_a;
+		&+li {
+			margin-top: 35px;
+		}
+	}
+}
+
+.list-num-round {
+	counter-reset: li;
+	padding-left: 51px;
+	position: relative;
+	margin-top: 30px;
+	margin-bottom: 30px;
+	&:before {
+		content: '';
+		position: absolute;
+		height: 100%;
+		width: 0px;
+		display: block;
+		border-left: 2px dashed #ccc;
+		left: 16px;
+	}
+	&>li {
+		list-style: none;
+		position: relative;
+		&:before {
+			content: counter(li);
+			counter-increment: li;
+			display: block;
+			position: absolute;
+			top: 0;
+			left: -51px;
+			width: 34px;
+			line-height: 34px;
+			background-color: #ff0049;
+			color: #fff;
+			text-align: center;
+			@include border-radius(50%);
+
+		}
+		&:not(:last-of-type):after {
+			content: '';
+			display: block;
+			position: absolute;
+			// border: 6px solid transparent;
+			border: 5px solid #fff;
+			border-top: 9px solid #ccc;
+			left: -39px;
+			top: 50%;
+			margin-top: 30px;
+		}
+		&+li {
+			margin-top: 35px;
+		}
+		ul li {
+			list-style-type: disc;
+		}
+	} 
+}
+
+.list-num-finger {
+	counter-reset: li;
+	padding-left: 81px;
+	margin-top: 30px;
+	margin-bottom: 30px;
+	@media (max-width: 480px) {
+		padding-left: 61px;
+	}
+	&>li {
+		list-style: none;
+		position: relative;
+		&:before {
+			content: image-url('finger_1.png');
+			display: block;
+			position: absolute;
+			top: 0;
+			left: -81px;
+			width: 34px;
+			@media (max-width: 480px) {
+				left: -61px;
+			}
+		}
+		&:nth-child(2) {
+			&:before {
+				content: image-url('finger_2.png');
+			}
+		}
+		&:nth-child(3) {
+			&:before {
+				content: image-url('finger_3.png');
+			}
+		}
+		&:nth-child(4) {
+			&:before {
+				content: image-url('finger_4.png');
+			}
+		}
+		&:nth-child(5) {
+			&:before {
+				content: image-url('finger_5.png');
+			}
+		}
+		&+li {
+			margin-top: 35px;
+		}
+		ul li {
+			list-style-type: disc;
+		}
+	} 
+}
